@@ -15,4 +15,8 @@ entry_points:
         type: str
         default: ''
 
-    command: "python main.py main.steps=\\'{steps}\\' $(echo {hydra_options})"
+    # command: "python main.py main.steps=\\'{steps}\\' $(echo {hydra_options})" # original
+
+    command: "python main.py main.steps={steps}"   # TODO: REvert this to original after development
+
+    # command: "python main.py main.steps={steps} modeling.random_forest.max_depth=10,50,100 modeling.random_forest.n_estimators=100,200,500 -m"
