@@ -19,4 +19,4 @@ entry_points:
 
     command: "python main.py main.steps={steps}"   # TODO: REvert this to original after development
 
-    # command: "python main.py main.steps={steps} modeling.random_forest.max_depth=10,50,100 modeling.random_forest.n_estimators=100,200,500 -m"
+    # command: "python main.py main.steps={steps} modeling.max_tfidf_features=10,15,30 modeling.random_forest.max_features=0.1,0.33,0.5,0.75,1 -m"
