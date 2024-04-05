@@ -37,7 +37,7 @@ def go(args):
     # Save to output files
     for df, k in zip([trainval, test], ['trainval', 'test']):
         logger.info(f"Uploading {k}_data.csv dataset")
-        
+
         # Sorry i needed to change this, because it wont run on windows (you cant open a file twice on windows)
         fpname = f"{k}.temp"
 

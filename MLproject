@@ -20,3 +20,6 @@ entry_points:
     command: "python main.py main.steps={steps}"   # TODO: REvert this to original after development
 
     # command: "python main.py main.steps={steps} modeling.max_tfidf_features=10,15,30 modeling.random_forest.max_features=0.1,0.33,0.5,0.75,1 -m"
+
+    # Run it on the second sample:
+    # command: "python main.py main.steps=all etl.sample=sample2.csv"

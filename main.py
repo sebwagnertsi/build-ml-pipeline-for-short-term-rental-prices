@@ -8,7 +8,7 @@ import hydra
 from omegaconf import DictConfig
 
 _steps = [
-    # "download",   #  TODO: uncomment
+    "download",  # TODO: uncomment
     "basic_cleaning",
     "data_check",
     "data_split",
@@ -16,7 +16,7 @@ _steps = [
     # NOTE: We do not include this in the steps so it is not run by mistake.
     # You first need to promote a model export to "prod" before you can run this,
     # then you need to run this step explicitly
-    #    "test_regression_model"
+    "test_regression_model"
 ]
 
 
@@ -96,7 +96,8 @@ def go(config: DictConfig):
 
             _ = mlflow.run(
                 # f"{config['main']['components_repository']}/train_val_test_split", # TODO revert to this line
-                os.path.join(hydra.utils.get_original_cwd(),"src", "train_val_test_split"),
+                os.path.join(hydra.utils.get_original_cwd(),
+                             "src", "train_val_test_split"),
                 "main",
                 parameters={
                     'input': "clean_sample.csv:latest",
@@ -109,14 +110,17 @@ def go(config: DictConfig):
         if "train_random_forest" in active_steps:
 
             # NOTE: we need to serialize the random forest configuration into JSON
-            rf_config_path = os.path.join(hydra.utils.get_original_cwd(), "rf_config.json")
+            rf_config_path = os.path.join(
+                hydra.utils.get_original_cwd(), "rf_config.json")
             with open(rf_config_path, "w+") as fp:
-                ## DO NOT TOUCH
-                json.dump(dict(config["modeling"]["random_forest"].items()), fp)
+                # DO NOT TOUCH
+                json.dump(
+                    dict(config["modeling"]["random_forest"].items()), fp)
 
             # NOTE: Removed indentation: file needs to be closed for windows to be able to read it again.
             _ = mlflow.run(
-                os.path.join(hydra.utils.get_original_cwd(),"src", "train_random_forest"),
+                os.path.join(hydra.utils.get_original_cwd(),
+                             "src", "train_random_forest"),
                 "main",
                 parameters={
                     'trainval_artifact': 'trainval_data.csv:latest',
@@ -129,7 +133,6 @@ def go(config: DictConfig):
                 },
             )
 
-
         if "test_regression_model" in active_steps:
 
             _ = mlflow.run(
@@ -141,7 +144,6 @@ def go(config: DictConfig):
                     'test_dataset': 'test_data.csv:latest'
                 },
             )
-
 
 
 if __name__ == "__main__":
