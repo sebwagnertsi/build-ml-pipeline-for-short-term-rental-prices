@@ -52,6 +52,7 @@ def go(args):
     # Fix the random seed for the Random Forest, so we get reproducible results
     rf_config['random_state'] = args.random_seed
 
+    # Step 1: download the train data:
     trainval_local_path = run.use_artifact(args.trainval_artifact).file()
 
     X = pd.read_csv(trainval_local_path)

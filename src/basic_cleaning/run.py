@@ -13,6 +13,17 @@ logger = logging.getLogger()
 
 
 def go(args):
+    '''
+    Runs the basic cleaning steps and log the artifact to WANDB.
+
+    Valid arguments:
+        input_artifact: str
+        output_artifact: str
+        output_type: str
+        output_description: str
+        min_price: float
+        max_price: float
+    '''
 
     run = wandb.init(job_type="basic_cleaning")
     run.config.update(args)
@@ -102,7 +113,5 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-
-    print("BASIC CLEANING:", args)
 
     go(args)

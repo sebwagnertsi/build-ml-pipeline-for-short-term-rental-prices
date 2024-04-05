@@ -8,7 +8,7 @@ import hydra
 from omegaconf import DictConfig
 
 _steps = [
-    "download",  # TODO: uncomment
+    "download",
     "basic_cleaning",
     "data_check",
     "data_split",
@@ -16,18 +16,15 @@ _steps = [
     # NOTE: We do not include this in the steps so it is not run by mistake.
     # You first need to promote a model export to "prod" before you can run this,
     # then you need to run this step explicitly
-    "test_regression_model"
+    # "test_regression_model"
 ]
 
 
 conf_path = os.path.abspath('config.yaml')
-print(conf_path)
 
 # This automatically reads in the configuration
-# @hydra.main(config_name='config', version_base=None)
-
-
-@hydra.main(config_name=conf_path, version_base=None)
+# @hydra.main(config_name='config', version_base=None) 
+@hydra.main(config_name=conf_path, version_base=None) # Fixed this to the absolute path. (may be a windows issue.)
 def go(config: DictConfig):
 
     print(config)
